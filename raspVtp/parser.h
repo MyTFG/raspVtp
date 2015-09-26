@@ -13,7 +13,8 @@ private:
     MytfgApi *api;
     int timestamp;
 
-    void parse(Json::Value result);
+    void parse(Json::Value plans);
+    void remove(QLayout* layout);
 public:
     Plan(QVBoxLayout *layout);
     void update(std::string location);

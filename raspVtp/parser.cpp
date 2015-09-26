@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <QScrollArea>
+#include <QTableWidget>
 
 #include "jsonCpp/include/json/json.h"
 
@@ -32,15 +33,12 @@ void Plan::update(std::string location) {
             Json::Value plans = json["plans"];
             if (plans.size() > 0) {
                 // Check if received plan is newer than currently displayed plan
-
-                // Add Table in ScrollView (?) for every Plan
-                std::cout << "Number of Plans: " << plans.size() << std::endl;
-
-                for (int i = 0; i < plans.size(); ++i) {
-                    QScrollArea *scroll = new QScrollArea;
-                    Json::Value plan = plans[i];
+                int lastUpdate = json["update"].asInt();
+                if (lastUpdate > this->timestamp) {
+                    this->parse(plans);
+                } else {
+                    std::cout << "Plans are already up to date" << std::endl;
                 }
-
             } else {
                 // No plans found
                 std::cout << "No plans received" << std::endl;
@@ -48,5 +46,38 @@ void Plan::update(std::string location) {
         } else {
             std::cout << "API returned error Code" << std::endl;
         }
+    }
+}
+
+void Plan::remove(QLayout* layout) {
+    QLayoutItem* child;
+    while(layout->count()!=0)
+    {
+        child = layout->takeAt(0);
+        if(child->layout() != 0)
+        {
+            remove(child->layout());
+        }
+        else if(child->widget() != 0)
+        {
+            delete child->widget();
+        }
+
+        delete child;
+    }
+}
+
+void Plan::parse(Json::Value plans) {
+    // Remove all children
+    remove(this->layout);
+
+    for (int i = 0; i < plans.size(); i++) {
+        QScrollArea *scroll = new QScrollArea;
+        QTableWidget *plan = new QTableWidget;
+        plan->setColumnCount(4);
+        // QHeaderView *header = new QHeaderView;
+
+        // plan->setHorizontalHeader(header);
+        // plan->insertRow(plan->rowCount());
     }
 }
