@@ -3,9 +3,10 @@ TEMPLATE = app
 QT += qml quick widgets
 
 SOURCES += main.cpp \
-    mytfgapi.cpp
+    mytfgapi.cpp \
+    parser.cpp
 
-LIBS += -lcurl
+LIBS += -lcurl -ljson_linux-gcc-4.9.2_libmt
 
 TARGET = curl
 
@@ -18,4 +19,5 @@ QML_IMPORT_PATH =
 include(deployment.pri)
 
 HEADERS += \
-    mytfgapi.h
+    mytfgapi.h \
+    parser.h

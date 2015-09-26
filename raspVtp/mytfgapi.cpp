@@ -2,6 +2,8 @@
 
 #include <iostream>
 #include <string>
+#include <QString>
+#include <QRegExp>
 #include <curl/curl.h>
 
 MytfgApi::MytfgApi() {
@@ -13,7 +15,7 @@ static std::size_t WriteCallback(void *contents, size_t size, size_t nmemb, void
     return size * nmemb;
 }
 
-std::string MytfgApi::call(std::string *params) {
+QString MytfgApi::call(std::string *params) {
     std::string paramstr = "";
 
     int count = sizeof(params)/sizeof(params[0]);
@@ -42,5 +44,14 @@ std::string MytfgApi::call(std::string *params) {
         curl_easy_cleanup(curl);
     }
 
-    return readBuffer;
+    QString str = QString::fromStdString(readBuffer);
+
+    // This will convert the unicode escape chars
+    QRegExp rx("(\\\\u[0-9a-fA-F]{4})");
+    int pos = 0;
+    while ((pos = rx.indexIn(str, pos)) != -1) {
+        str.replace(pos++, 6, QChar(rx.cap(1).right(4).toUShort(0, 16)));
+    }
+
+    return str;
 }
