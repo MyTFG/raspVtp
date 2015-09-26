@@ -21,5 +21,4 @@ include(deployment.pri)
 
 HEADERS += \
     mytfgapi.h \
-    parser.h \
-    jsonCpp/dist/json.h
+    parser.h
