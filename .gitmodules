@@ -1,0 +1,3 @@
+[submodule "raspVtp/jsonCpp"]
+	path = raspVtp/jsonCpp
+	url = https://github.com/open-source-parsers/jsoncpp.git
