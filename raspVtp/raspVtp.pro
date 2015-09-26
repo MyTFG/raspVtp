@@ -4,9 +4,10 @@ QT += qml quick widgets
 
 SOURCES += main.cpp \
     mytfgapi.cpp \
-    parser.cpp
+    parser.cpp \
+    jsonCpp/dist/jsoncpp.cpp
 
-LIBS += -lcurl -ljson_linux-gcc-4.9.2_libmt
+LIBS += -lcurl
 
 TARGET = curl
 
@@ -20,4 +21,5 @@ include(deployment.pri)
 
 HEADERS += \
     mytfgapi.h \
-    parser.h
+    parser.h \
+    jsonCpp/dist/json.h
