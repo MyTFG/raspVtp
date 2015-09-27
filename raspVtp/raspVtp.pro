@@ -4,13 +4,17 @@ QT += qml quick widgets
 
 SOURCES += main.cpp \
     mytfgapi.cpp \
-    parser.cpp
+    parser.cpp \
+    plan.cpp \
+    vplanscroller.cpp
 
 LIBS += -lcurl -ljson_linux-gcc-4.9.2_libmt
 
-TARGET = curl
+TARGET = raspvtp
 
 RESOURCES += qml.qrc
+
+CONFIG += c++11
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
@@ -20,4 +24,6 @@ include(deployment.pri)
 
 HEADERS += \
     mytfgapi.h \
-    parser.h
+    parser.h \
+    plan.h \
+    vplanscroller.h

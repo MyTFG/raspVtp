@@ -8,33 +8,47 @@
 #include <QScrollArea>
 #include <QTextCodec>
 #include <iostream>
+#include <stdlib.h>
+#include <chrono>
+#include <thread>
+#include <QTimer>
 
 #include "jsonCpp/include/json/json.h"
 #include "jsonCpp/include/json/value.h"
 #include "parser.h"
-
-void scroll(QScrollArea *plans) {
-
-}
+#include "vplanscroller.h"
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
 
+    std::string location;
+    std::cout << argc << std::endl;
+    if (argc < 2) {
+        location = "LZ";
+    } else {
+        location = argv[1];
+    }
+
     //QQmlApplicationEngine engine;
     //engine.load(QUrl(QStringLiteral("qrc:///main.qml")));
-
-    QWidget *window = new QWidget;
-    window->setWindowTitle("MyTFG VPlan");
 
     // This is the main Layout to align the plan(s)
     QVBoxLayout *layout = new QVBoxLayout;
 
-    Plan *plan = new Plan(layout);
-    plan->update("LZ");
-
+    QWidget *window = new QWidget;
+    window->setWindowTitle("MyTFG VPlan");
     window->setLayout(layout);
     window->setWindowState(Qt::WindowFullScreen);
     window->show();
 
+
+    Parser *plan = new Parser(layout);;
+    plan->update(location);
+    //plan->startLoop();
+
+    VplanScroller *scroller = new VplanScroller;
+    scroller->init(plan);
+
     return app.exec();
 }
+

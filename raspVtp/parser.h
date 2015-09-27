@@ -3,20 +3,35 @@
 
 #include <QVBoxLayout>
 #include <string>
+#include <QApplication>
+#include <QScrollArea>
 #include "jsonCpp/include/json/value.h"
 #include "mytfgapi.h"
 
-class Plan
+class Parser
 {
-private:
+private:    
+    // Update content every 5 minutes
+    const int updateInterval = 300000;
+    const int scrollSpeed = 1;
+    const int overScroll = 300;
+
     QVBoxLayout *layout;
     MytfgApi *api;
     int timestamp;
+    int untilUpdate;
+    std::string autoLocation;
+
+    std::vector<QScrollArea*> *scrolls;
+    std::vector<int> *scrollPositions;
 
     void parse(Json::Value plans);
     void remove(QLayout* layout);
+    void scroll(int delay);
+public slots:
+    void loop(int delay);
 public:
-    Plan(QVBoxLayout *layout);
+    Parser(QVBoxLayout *layout);
     void update(std::string location);
 };
 
