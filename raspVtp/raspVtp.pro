@@ -6,9 +6,10 @@ SOURCES += main.cpp \
     mytfgapi.cpp \
     parser.cpp \
     plan.cpp \
-    vplanscroller.cpp
+    vplanscroller.cpp \
+    jsonCpp/dist/jsoncpp.cpp
 
-LIBS += -lcurl -ljson_linux-gcc-4.9.2_libmt
+LIBS += -lcurl
 
 TARGET = raspvtp
 
