@@ -39,6 +39,7 @@ int main(int argc, char *argv[]) {
     window->setWindowTitle("MyTFG VPlan");
     window->setLayout(layout);
     window->setWindowState(Qt::WindowFullScreen);
+    window->setStyleSheet("QWidget {background-color: #00014a;}");
     window->show();
 
 

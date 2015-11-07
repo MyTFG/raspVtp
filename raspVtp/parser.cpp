@@ -147,11 +147,12 @@ void Parser::parse(Json::Value plans) {
 
         QWidget *holderW = new QWidget;
         holderW->setLayout(planlayout);
-        holderW->setStyleSheet("QWidget {background-color: #00FF00;}");
+        holderW->setStyleSheet("QWidget {background-color: #FFFFFF;}");
         holderW->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
         scroll->setWidget(holderW);
         scroll->setWidgetResizable(true);
+        std::cout << scroll->height() << std::endl;
 
         scrolls->push_back(scroll);
         scrollPositions->push_back(0);

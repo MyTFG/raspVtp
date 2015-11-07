@@ -7,7 +7,7 @@ Plan::Plan()
 
     this->layout = new QVBoxLayout;
     this->layout->setMargin(0);
-    this->layout->setSpacing(0);
+    this->layout->setSpacing(1);
 
     this->nextRow();
 }
