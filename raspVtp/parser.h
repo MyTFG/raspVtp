@@ -13,7 +13,7 @@ class Parser
 private:    
     // Update content every 5 minutes
     const int updateInterval = 300000;
-    const int scrollSpeed = 1;
+    const int scrollSpeed = 2;
     const int overScroll = 300;
 
     QVBoxLayout *layout;

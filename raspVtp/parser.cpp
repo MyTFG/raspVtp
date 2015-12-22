@@ -83,8 +83,19 @@ void Parser::parse(Json::Value plans) {
     this->scrollPositions = new std::vector<int>();
 
     for (int i = 0; i < plans.size(); i++) {
+
         QScrollArea *scroll = new QScrollArea;
-        scroll->setStyleSheet("QScrollArea {background-color: #FFFFFF; padding: 0; margin: 0}");
+        if (i > 0 && i < plans.size() - 1) {
+            scroll->setStyleSheet("QScrollArea {background-color: #394689; padding: 1px; margin: 0; margin-top: 10px; margin-bottom: 10px}");
+        } else if (i > 0) {
+            scroll->setStyleSheet("QScrollArea {background-color: #394689; padding: 1px; margin: 0; margin-top: 10px; margin-bottom: 0px}");
+        } else if (i < plans.size() - 1) {
+            scroll->setStyleSheet("QScrollArea {background-color: #394689; padding: 1px; margin: 0; margin-top: 0px; margin-bottom: 10px}");
+        } else {
+            scroll->setStyleSheet("QScrollArea {background-color: #394689; padding: 1px; margin: 0; margin-top: 0px; margin-bottom: 0px}");
+        }
+
+
         scroll->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::MinimumExpanding);
 
         this->layout->addWidget(scroll);
@@ -95,7 +106,10 @@ void Parser::parse(Json::Value plans) {
             continue;
         }
 
-        Plan *plan = new Plan;
+
+        bool day = p["day"] == "heute";
+
+        Plan *plan = new Plan(day);
         // HEADER
         plan->addCell(p["status_message"].asString(), 4, true);
 
@@ -147,8 +161,12 @@ void Parser::parse(Json::Value plans) {
 
         QWidget *holderW = new QWidget;
         holderW->setLayout(planlayout);
-        holderW->setStyleSheet("QWidget {background-color: #FFFFFF;}");
-        holderW->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        if (day) {
+            holderW->setStyleSheet("QWidget {background-color: #0081f2; border: 2px solid #0081f2;}");
+        } else {
+            holderW->setStyleSheet("QWidget {background-color: #00b31b;}");
+        }
+        holderW->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
 
         scroll->setWidget(holderW);
         scroll->setWidgetResizable(true);
@@ -172,7 +190,7 @@ void Parser::scroll(int delay) {
         if (current >= s->widget()->height() + overScroll) {
             current = 0;
         } else {
-            current++;
+            current += this->scrollSpeed;
         }
 
         scrollPositions->at(i) = current;

@@ -29,6 +29,8 @@ int main(int argc, char *argv[]) {
         location = argv[1];
     }
 
+    QApplication::setOverrideCursor(Qt::BlankCursor);
+
     //QQmlApplicationEngine engine;
     //engine.load(QUrl(QStringLiteral("qrc:///main.qml")));
 
@@ -39,7 +41,7 @@ int main(int argc, char *argv[]) {
     window->setWindowTitle("MyTFG VPlan");
     window->setLayout(layout);
     window->setWindowState(Qt::WindowFullScreen);
-    window->setStyleSheet("QWidget {background-color: #00014a;}");
+    window->setStyleSheet("QWidget {background-color: #394689;}");
     window->show();
 
 
