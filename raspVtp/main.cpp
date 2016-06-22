@@ -27,12 +27,12 @@ int main(int argc, char *argv[]) {
 
     std::cout << argc << std::endl;
     if (argc < 2) {
-        location = "LZ";
+        location = "full";
     } else {
 	if (argc == 2) {
 	    location = argv[1];
 	} else if (argc == 3) {
-	    location = "LZ";
+        location = "LZ";
 	    textPt = argv[1];
 	    titlePt = argv[2];
 	} else {
@@ -61,6 +61,7 @@ int main(int argc, char *argv[]) {
     Parser *plan = new Parser(layout);
     plan->size(textPt, titlePt);
     plan->update(location);
+
     //plan->startLoop();
 
     VplanScroller *scroller = new VplanScroller;

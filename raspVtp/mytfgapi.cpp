@@ -18,7 +18,11 @@ static std::size_t WriteCallback(void *contents, size_t size, size_t nmemb, void
 QString MytfgApi::call(std::string *params) {
     std::string paramstr = "";
 
-    int count = sizeof(params)/sizeof(params[0]);
+    int count = 0;
+    while (!params[count].empty()) {
+        count++;
+    }
+
 
     bool first = true;
     for (int i = 0; i < count; i += 2) {
@@ -30,6 +34,7 @@ QString MytfgApi::call(std::string *params) {
     }
 
     std::string url = "https://mytfg.de/ajax_vplan_presentation.x?" + paramstr;
+
 
     CURL *curl;
     std::string readBuffer;
