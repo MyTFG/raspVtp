@@ -14,8 +14,10 @@ private:
     bool isToday;
     QGridLayout *row;
     QVBoxLayout *layout;
+    std::string textPt;
+    std::string titlePt;
 public:
-    Plan(bool day);
+    Plan(bool day, std::string text, std::string title);
     void nextRow();
     void addCell(std::string content, int colspan = 1, bool isTitle = false);
     QVBoxLayout* getWidget();

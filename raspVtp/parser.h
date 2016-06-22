@@ -20,6 +20,8 @@ private:
     MytfgApi *api;
     int timestamp;
     int untilUpdate;
+    std::string textPt;
+    std::string titlePt;
     std::string autoLocation;
 
     std::vector<QScrollArea*> *scrolls;
@@ -33,6 +35,7 @@ public slots:
 public:
     Parser(QVBoxLayout *layout);
     void update(std::string location);
+    void size(std::string text, std::string title);
 };
 
 #endif // PARSER_H

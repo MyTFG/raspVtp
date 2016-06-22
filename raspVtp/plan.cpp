@@ -1,10 +1,12 @@
 #include "plan.h"
 
-Plan::Plan(bool day)
+Plan::Plan(bool day, std::string text, std::string title)
 {
     this->currentRow = -1;
     this->currentCol = 0;
     this->isToday = day;
+    this->textPt = text;
+    this->titlePt = title;
 
     this->layout = new QVBoxLayout;
     this->layout->setMargin(0);
@@ -47,11 +49,11 @@ void Plan::addCell(std::string content, int colspan, bool isTitle) {
     frame->setLayout(frameLayout);
     if (isTitle) {
         frame->setStyleSheet("QFrame {background-color: #00014a; margin: 0px; padding: 5px; border: 2px solid #AA0000;}");
-        label->setStyleSheet("QLabel { color : white; border: 0px; font-size: 20pt; text-align: center;}");
+        label->setStyleSheet("QLabel { color : white; border: 0px; font-size: " + QString::fromStdString(this->titlePt) + "; text-align: center;}");
         label->setText("<b>" + QString::fromStdString(content) + "</b>");
     } else {
         label->setText(QString::fromStdString(content));
-        frame->setStyleSheet("QFrame {background-color: #586FC7; font-size: 17pt; margin: 0px; padding: 5px;}");
+        frame->setStyleSheet("QFrame {background-color: #586FC7; font-size: " + QString::fromStdString(this->textPt) + "; margin: 0px; padding: 5px;}");
         label->setStyleSheet("QLabel { color : white; border: 0px;}");
     }
     label->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);

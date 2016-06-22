@@ -18,6 +18,11 @@ Parser::Parser(QVBoxLayout *layout)
     this->autoLocation = "";
 }
 
+void Parser::size(std::string text, std::string title) {
+    this->textPt = text;
+    this->titlePt = title;
+}
+
 void Parser::update(std::string location) {
     this->autoLocation = location;
     // Call the API
@@ -34,7 +39,7 @@ void Parser::update(std::string location) {
         std::cout << "Error parsing JSON" << std::endl;
     } else {
         if (json.get("status", "0").asString() == "1") {
-            std::cout << "API result ok" << std::endl;
+            // std::cout << "API result ok" << std::endl;
             // Parse plan(s)
             Json::Value plans = json["plans"];
             if (plans.size() > 0) {
@@ -44,11 +49,11 @@ void Parser::update(std::string location) {
                     this->timestamp = lastUpdate;
                     this->parse(plans);
                 } else {
-                    std::cout << "Plans are already up to date" << std::endl;
+                    // std::cout << "Plans are already up to date" << std::endl;
                 }
             } else {
                 // No plans found
-                std::cout << "No plans received" << std::endl;
+                // std::cout << "No plans received" << std::endl;
             }
         } else {
             std::cout << "API returned error Code" << std::endl;
@@ -109,7 +114,7 @@ void Parser::parse(Json::Value plans) {
 
         bool day = p["day"] == "heute";
 
-        Plan *plan = new Plan(day);
+        Plan *plan = new Plan(day, this->textPt, this->titlePt);
         // HEADER
         plan->addCell(p["status_message"].asString(), 4, true);
 

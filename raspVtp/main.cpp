@@ -22,11 +22,24 @@ int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
 
     std::string location;
+    std::string textPt = "17pt";
+    std::string titlePt = "21pt";
+
     std::cout << argc << std::endl;
     if (argc < 2) {
         location = "LZ";
     } else {
-        location = argv[1];
+	if (argc == 2) {
+	    location = argv[1];
+	} else if (argc == 3) {
+	    location = "LZ";
+	    textPt = argv[1];
+	    titlePt = argv[2];
+	} else {
+	    location = argv[1];
+	    textPt = argv[2];
+	    titlePt = argv[3];
+	}
     }
 
     QApplication::setOverrideCursor(Qt::BlankCursor);
@@ -45,7 +58,8 @@ int main(int argc, char *argv[]) {
     window->show();
 
 
-    Parser *plan = new Parser(layout);;
+    Parser *plan = new Parser(layout);
+    plan->size(textPt, titlePt);
     plan->update(location);
     //plan->startLoop();
 
