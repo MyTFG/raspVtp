@@ -15,14 +15,8 @@ static std::size_t WriteCallback(void *contents, size_t size, size_t nmemb, void
     return size * nmemb;
 }
 
-QString MytfgApi::call(std::string *params) {
+QString MytfgApi::call(std::string *params, size_t count) {
     std::string paramstr = "";
-
-    int count = 0;
-    while (!params[count].empty()) {
-        count++;
-    }
-
 
     bool first = true;
     for (int i = 0; i < count; i += 2) {

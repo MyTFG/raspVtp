@@ -28,7 +28,7 @@ void Parser::update(std::string location) {
     // Call the API
     std::string params[2] = {"location", location};
     //std::string result = api->call(params);
-    QString qstring = api->call(params);
+    QString qstring = api->call(params, 2);
     std::string result = qstring.toStdString();
 
     // Parse result
