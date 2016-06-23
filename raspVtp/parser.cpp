@@ -43,6 +43,7 @@ void Parser::update(std::string location) {
             // Parse plan(s)
             Json::Value plans = json["plans"];
             if (plans.size() > 0) {
+		// std::cout << "Plan count: " << plans.size() << std::endl;
                 // Check if received plan is newer than currently displayed plan
                 int lastUpdate = json["update"].asInt();
                 if (lastUpdate != this->timestamp) {
@@ -101,7 +102,7 @@ void Parser::parse(Json::Value plans) {
         }
 
 
-        scroll->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::MinimumExpanding);
+        scroll->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
         this->layout->addWidget(scroll);
 
@@ -175,7 +176,7 @@ void Parser::parse(Json::Value plans) {
 
         scroll->setWidget(holderW);
         scroll->setWidgetResizable(true);
-        std::cout << scroll->height() << std::endl;
+        // std::cout << "Height: " << scroll->height() << std::endl;
 
         scrolls->push_back(scroll);
         scrollPositions->push_back(0);
