@@ -54,7 +54,7 @@ void Plan::addCell(std::string content, int colspan, bool isTitle) {
     } else {
         label->setText(QString::fromStdString(content));
         frame->setStyleSheet("QFrame {background-color: #586FC7; font-size: " + QString::fromStdString(this->textPt) + "; margin: 0px; padding: 5px;}");
-        label->setStyleSheet("QLabel { color : white; border: 0px;}");
+        label->setStyleSheet("QLabel { color : white; border: 0px; font-weight: bold;}");
     }
     label->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     frameLayout->addWidget(label);
